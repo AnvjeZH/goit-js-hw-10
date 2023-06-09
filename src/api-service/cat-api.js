@@ -1,6 +1,7 @@
 export const API =
   'live_XtFPFsMhoHYrHWi82dyH8oBaWjurPQ4tCWO7REmrDCh4se7FxfwXkvcXfL4yy9Kp';
 
+ export const errorP = document.querySelector('.error')
 export function fetchBreeds() {
   return fetch(`https://api.thecatapi.com/v1/breeds`)
     .then(response => {
@@ -9,7 +10,9 @@ export function fetchBreeds() {
       }
       return response.json();
     })
-    .catch(error => console.log(error));
+    .catch(() => {
+      errorP.classList.remove('unvisible')
+    });
 }
 
 export function fetchCatByBreed(breedId) {
@@ -24,6 +27,8 @@ export function fetchCatByBreed(breedId) {
         return response.json();
       })
       .then(data => data[0])
-      .catch(error => console.log(error));
+      .catch(() => {
+        errorP.classList.remove('unvisible')
+      });
 }
 

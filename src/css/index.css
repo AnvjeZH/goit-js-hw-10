@@ -1,0 +1,35 @@
+body {
+    margin: 15px;
+    padding: 0;
+}
+.unvisible {
+    display: none;
+}
+.cat-info {
+    display: inline-flex;
+    /* height: 350px; */
+}
+.breed-select {
+    margin-bottom: 15px;
+}
+.text-box {
+   margin-left: 15px;
+}
+.cat-img {
+    border-radius: 10px;
+}
+.title-cat {
+    text-align: center ;
+    margin-top: 0;
+    font-size: 45px;
+    font-family: 'Merriweather', serif;
+}
+
+.text-cat{
+    margin-top: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+}
+.temp-cat {
+    font-family: 'Merriweather', serif;
+}
