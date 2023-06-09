@@ -1,7 +1,6 @@
-export const API =
+const API =
   'live_XtFPFsMhoHYrHWi82dyH8oBaWjurPQ4tCWO7REmrDCh4se7FxfwXkvcXfL4yy9Kp';
 
- export const errorP = document.querySelector('.error')
 export function fetchBreeds() {
   return fetch(`https://api.thecatapi.com/v1/breeds`)
     .then(response => {
@@ -10,8 +9,8 @@ export function fetchBreeds() {
       }
       return response.json();
     })
-    .catch(() => {
-      errorP.classList.remove('unvisible')
+    .catch((error) => {
+      console.log(`Code error: ${error.message}`)
     });
 }
 
@@ -27,8 +26,8 @@ export function fetchCatByBreed(breedId) {
         return response.json();
       })
       .then(data => data[0])
-      .catch(() => {
-        errorP.classList.remove('unvisible')
+      .catch((error) => {
+        console.log(`Code error: ${error.message}`)
       });
 }
 

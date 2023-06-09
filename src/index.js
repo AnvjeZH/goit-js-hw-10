@@ -1,29 +1,37 @@
-import { API, errorP, fetchBreeds, fetchCatByBreed } from './api-service/cat-api';
+import SlimSelect from 'slim-select'
+import Notiflix from 'notiflix';
+
+import { fetchBreeds, fetchCatByBreed } from './api-service/cat-api';
 
 const select = document.querySelector('select');
 const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
+const errorP = document.querySelector('.error')
 
-
-
-loader.classList.add('unvisible')
-errorP.classList.add('unvisible')
+showLoader()
 
 fetchBreeds()
   .then(breeds => {
     onMarkupSelectBreeds(breeds)
+    hideLoader()
+  }).catch(()=> {
+    showError()
+    hideLoader()
   })
   
 
   select.addEventListener('change', () => {
     const breedId = select.value;
-    loader.classList.remove('unvisible')
+    showLoader()
     catInfo.innerHTML = ''
     fetchCatByBreed(breedId).then(cat => {
       createMarkupCat(cat)
     })
+    .catch(()=> {
+      showError()
+    })
     .finally(() => {
-      loader.classList.add('unvisible')
+      hideLoader()
     });
    })
   
@@ -33,8 +41,7 @@ fetchBreeds()
       return `<option value="${id}">${name}</option>`;
     });
     select.insertAdjacentHTML('beforeend', markup.join(''));
-
-    
+    const slimSelect = new SlimSelect({select: select})
   }
   
   function createMarkupCat(cat) {
@@ -45,6 +52,19 @@ fetchBreeds()
     <p class='text-cat'><span class='temp-cat'>Temperament:</span> ${cat.breeds[0].temperament}</p>
     </div>`;
 
-    // catInfo.insertAdjacentHTML('beforeend', catMarkup);
     catInfo.innerHTML = catMarkup;
+  }
+
+  function showError() {
+    Notiflix.Notify.init({clickToClose: true})
+    Notiflix.Notify.failure(errorP.textContent);
+   
+  }
+
+  function showLoader() {
+    loader.classList.remove('unvisible')
+  }
+
+  function hideLoader() {
+    loader.classList.add('unvisible')
   }
